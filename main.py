@@ -76,8 +76,8 @@ def root():
         "status": "ok"
     }
 
-@app.get("/protected")
-def protected_route(user=Depends(verify_token)):
+@app.get("/protected/profile")
+def protected_profile(user=Depends(verify_token)):
     return {
         "message": "You have access to this protected route",
         "user_id": user.id,

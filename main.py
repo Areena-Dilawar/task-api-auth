@@ -24,6 +24,23 @@ app = FastAPI(
 class SignupRequest(BaseModel):
     email: str
     password: str
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+@app.post("/login")
+def login(data: LoginRequest):
+    response = supabase.auth.sign_in_with_password({
+        "email": data.email,
+        "password": data.password
+    })
+
+    return {
+        "message": "Login successful",
+        "access_token": response.session.access_token,
+        "token_type": "bearer"
+    }
 @app.post("/signup")
 def signup(data: SignupRequest):
     response = supabase.auth.sign_up({

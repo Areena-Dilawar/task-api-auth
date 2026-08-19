@@ -83,3 +83,11 @@ def protected_route(user=Depends(verify_token)):
         "user_id": user.id,
         "email": user.email
     }
+
+@app.post("/logout")
+def logout():
+    supabase.auth.sign_out()
+
+    return {
+        "message": "Logout successful"
+    }
